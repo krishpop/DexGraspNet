@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.6
+#       jupytext_version: 1.14.5
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -14,24 +14,41 @@
 # ---
 
 # %%
+# !pip install transforms3d
+
+# %%
 import os
-import random
+import sys
+sys.path.append(os.path.realpath("."))
+
+from utils.isaac_validator import IsaacValidator, ValidationType
+from tap import Tap
+import torch
+import numpy as np
 from utils.hand_model import HandModel
 from utils.object_model import ObjectModel
-import numpy as np
-import torch
-from utils.hand_model_type import handmodeltype_to_joint_names, HandModelType
-from utils.qpos_pose_conversion import qpos_to_pose
-from utils.seed import set_seed
-from plotly.subplots import make_subplots
-import plotly.express as px
-import plotly.graph_objects as go
-from utils.joint_angle_targets import (
-    OptimizationMethod,
-    compute_optimized_joint_angle_targets,
-    compute_optimized_canonicalized_hand_pose,
+from utils.hand_model_type import (
+   HandModelType,
+   handmodeltype_to_joint_names,
 )
+from utils.qpos_pose_conversion import (
+   qpos_to_pose,
+   qpos_to_translation_quaternion_jointangles,
+   pose_to_qpos,
+)
+from typing import List, Optional, Dict
+import math
+from utils.seed import set_seed
+from utils.joint_angle_targets import (
+   compute_optimized_joint_angle_targets,
+   OptimizationMethod,
+)
+from utils.energy import _cal_hand_object_penetration
 
+# %%
+# !pip uninstall PIL
+# !pip uninstall Pillow -y
+# !pip install Pillow -y
 
 # %% [markdown]
 # ## PARAMS

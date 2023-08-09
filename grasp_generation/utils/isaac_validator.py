@@ -291,7 +291,7 @@ class IsaacValidator:
             env, hand_quaternion, hand_translation, hand_qpos, test_rot, target_qpos
         )
 
-        self._setup_obj(env, obj_scale, test_rot)
+        self._setup_obj(env, obj_scale, test_rot, self.obj_asset)
 
     def _setup_hand(
         self,
@@ -372,7 +372,7 @@ class IsaacValidator:
         gym.set_actor_rigid_shape_properties(env, hand_actor_handle, hand_shape_props)
         return
 
-    def _setup_obj(self, env, obj_scale, transformation):
+    def _setup_obj(self, env, obj_scale, transformation, obj_asset):
         obj_pose = gymapi.Transform()
         obj_pose.p = gymapi.Vec3(0, 0, 0)
         obj_pose.r = gymapi.Quat(0, 0, 0, 1)
@@ -381,7 +381,7 @@ class IsaacValidator:
 
         # Create obj
         obj_actor_handle = gym.create_actor(
-            env, self.obj_asset, obj_pose, "obj", 0, 1, OBJ_SEGMENTATION_ID
+            env, obj_asset, obj_pose, "obj", 0, 1, OBJ_SEGMENTATION_ID
         )
         self.obj_handles.append(obj_actor_handle)
         gym.set_actor_scale(env, obj_actor_handle, obj_scale)
@@ -748,7 +748,7 @@ class IsaacValidator:
         )
         self.envs.append(env)
 
-        self._setup_obj(env, obj_scale, identity_transform)
+        self._setup_obj(env, obj_scale, identity_transform, self.obj_asset)
 
     def save_images(self, folder, overwrite=False):
         assert len(self.envs) == 1

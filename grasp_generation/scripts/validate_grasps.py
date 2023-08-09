@@ -46,6 +46,7 @@ class ValidateGraspArgumentParser(Tap):
     grasp_path: str = "../data/graspdata"
     result_path: str = "../data/dataset"
     object_code: str = "sem-Xbox360-d0dff348985d4f8e65ca1b579a4b8d2"
+    grasp_object_code: Optional[str] = None
     # if debug_index is received, then the debug mode is on
     debug_index: Optional[int] = None
     debug_only_valid_grasps: bool = False
@@ -179,8 +180,11 @@ def main(args: ValidateGraspArgumentParser):
         )
 
     # Read in data
+    grasp_object_code = args.grasp_object_code
+    if grasp_object_code is None:
+        grasp_object_code = args.object_code
     data_dicts = np.load(
-        os.path.join(args.grasp_path, args.object_code + ".npy"), allow_pickle=True
+        os.path.join(args.grasp_path, grasp_object_code + ".npy"), allow_pickle=True
     )
     batch_size = data_dicts.shape[0]
     translation_array = []

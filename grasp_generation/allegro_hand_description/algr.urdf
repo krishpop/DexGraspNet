@@ -1,0 +1,665 @@
+<?xml version="1.0" ?>
+<!--
+FR3 URDF converted from
+
+https://github.com/frankaemika/franka_ros/blob/develop/franka_description/robots/fr3/fr3.urdf.xacro
+
+on July 11, 2023. These links stop at link 7 (i.e., they do not include the default
+FR3 gripper, as it is replaced by the Allegro hand).
+_______________________________________________________________________________________
+
+Allegro URDF taken from
+
+https://github.com/RobotLocomotion/drake/tree/master/manipulation/models/allegro_hand_description
+
+on July 12, 2023.
+
+
+NOTATION FOR NAMES OF URDF ELEMENTS
+* HAND: rh, lh: denotes right hand or left hand
+* FINGER: th, if, mf, rf: denotes thumb, {index, middle, ring} finger
+
+* FINGER PHALANGES: bs, px, md, ds: denotes {base, proximal, middle, distal} phalanges.
+The base phalanx is non-biological and is used to connect the non-biological axial
+joint to the finger.
+* THUMB PHALANGES: mp, bs, px, ds: denotes {metacarpal, base, proximal, distal}
+phalanges. The metacarpal phalanx is the one in the palm of the robot. Again, the base
+phalanx is non-biological.
+
+* FINGER JOINTS: axl, mcp, pip, dip: denotes {axial, metacarpophalangeal, proximal
+interphalangeal, distal interphalangeal} joints for non-thumb fingers. Axial is the
+non-biological joint that allows each finger to rotate about its axis. mcp, pip, and
+dip joints are in order from closest to farthest from the palm.
+* THUMB JOINTS: cmc, axl, mcp, ipl: denotes {carpometacarpal, axial,
+metacarpophalangeal, interphalengeal} joints for the thumb. The cmc joint is the joint
+connecting the thumb to the palm, the axial joint is the non-biological joint allowing
+the thumb to axially rotate, and the mcp and ip joints are in order as above.
+
+############################
+######## LINK NAMES ########
+############################
+| LINK |    FINGER NAME    |
+|######|###################|
+| palm |   algr_rh_palm    |
+|######|###################|
+|  0   |   algr_rh_if_bs   |
+|  1   |   algr_rh_if_px   |
+|  2   |   algr_rh_if_md   |
+|  3   |   algr_rh_if_ds   |
+|######|###################|
+|  4   |   algr_rh_mf_bs   |
+|  5   |   algr_rh_mf_px   |
+|  6   |   algr_rh_mf_md   |
+|  7   |   algr_rh_mf_ds   |
+|######|###################|
+|  8   |   algr_rh_rf_bs   |
+|  9   |   algr_rh_rf_px   |
+|  10  |   algr_rh_rf_md   |
+|  11  |   algr_rh_rf_ds   |
+|######|###################|
+|  12  |   algr_rh_th_mp   |
+|  13  |   algr_rh_th_bs   |
+|  14  |   algr_rh_th_px   |
+|  15  |   algr_rh_th_ds   |
+#######|####################
+
+##############################
+######### JOINT NAMES ########
+##############################
+| JOINT |     JOINT NAME     |
+|#######|####################|
+|   0   |   algr_rh_if_axl   |
+|   1   |   algr_rh_if_mcp   |
+|   2   |   algr_rh_if_pip   |
+|   3   |   algr_rh_if_dip   |
+|#######|####################|
+|   4   |   algr_rh_mf_axl   |
+|   5   |   algr_rh_mf_mcp   |
+|   6   |   algr_rh_mf_pip   |
+|   7   |   algr_rh_mf_dip   |
+|#######|####################|
+|   8   |   algr_rh_rf_axl   |
+|   9   |   algr_rh_rf_mcp   |
+|   10  |   algr_rh_rf_pip   |
+|   11  |   algr_rh_rf_dip   |
+|#######|####################|
+|   12  |   algr_rh_th_cmc   |
+|   13  |   algr_rh_th_axl   |
+|   14  |   algr_rh_th_mcp   |
+|   15  |   algr_rh_th_ipl   |
+##############################
+-->
+
+<robot name="fr3_algr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- ALLEGRO HAND -->
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/base_link.STL"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.009300 0 -0.0475"/>
+      <geometry>
+        <box size="0.0408 0.1130 0.095"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.4154"/>
+      <inertia ixx="0.00208916" ixy="-3.63457e-06" ixz="0.000223277" iyy="0.00182848" iyz="-1.75634e-05" izz="0.000482459"/>
+    </inertial>
+  </link>
+  
+  <link name="link_0.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_0.0.STL"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0164"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0082"/>
+    </collision>
+    <inertial>
+      <mass value="0.0119"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.95377e-06" ixy="3.03372e-09" ixz="8.92323e-08" iyy="1.17908e-06" iyz="-3.7069e-08" izz="1.49673e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_if_axl" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="0.7" lower="-0.47" upper="0.47" velocity="7"/>
+    <parent link="base_link"/>
+    <child link="link_0.0"/>
+    <origin rpy="-0.08726646255 0 0" xyz="0 0.0435 -0.001542"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+
+
+
+
+  <link name="link_1.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_1.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.054"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.027"/>
+    </collision>
+    <inertial>
+      <mass value="0.065"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="7.19218e-05" ixy="0" ixz="0" iyy="7.4377e-05" iyz="7.32186e-07" izz="5.40622e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_if_mcp" type="revolute">
+    <limit effort="0.7" lower="-0.196" upper="1.61" velocity="7"/>
+    <axis xyz="0 1 0"/>
+    <parent link="link_0.0"/>
+    <child link="link_1.0"/>
+    <origin xyz="0 0 0.0164"/>
+    <dynamics damping="1.5e-2" friction="5"/>
+  </joint>
+  <link name="link_2.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_2.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0384"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0192"/>
+    </collision>
+    <inertial>
+      <mass value="0.0355"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="3.16925e-05" ixy="1.07094e-09" ixz="-4.91273e-09" iyy="3.10516e-05" iyz="3.87549e-08" izz="3.20319e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_if_pip" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.174" upper="1.709" velocity="7"/>
+    <parent link="link_1.0"/>
+    <child link="link_2.0"/>
+    <origin xyz="0 0 0.054"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_3.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_3.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0267"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.01335"/>
+    </collision>
+    <inertial>
+      <mass value="0.0096"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="2.13975e-06" ixy="1.59554e-09" ixz="-7.47528e-09" iyy="1.52036e-06" iyz="-9.89336e-09" izz="1.20271e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_if_dip" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.227" upper="1.618" velocity="7"/>
+    <parent link="link_2.0"/>
+    <child link="link_3.0"/>
+    <origin xyz="0 0 0.0384"/>
+    <dynamics damping="1.5e-2" friction="12"/>
+  </joint>
+  <link name="link_3.0_tip">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_3.0_tip.STL"/>
+      </geometry>
+      <material name="white">
+        <color rgba=".9 .9 .9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.012"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0168"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.19599e-05" ixy="0" ixz="0" iyy="1.19598e-05" iyz="0" izz="1.10345e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_if_dip_tip" type="fixed">
+    <parent link="link_3.0"/>
+    <child link="link_3.0_tip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0267"/>
+  </joint>
+  
+  <link name="link_4.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_0.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0164"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0082"/>
+    </collision>
+    <inertial>
+      <mass value="0.0119"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.95377e-06" ixy="3.03372e-09" ixz="8.92323e-08" iyy="1.17908e-06" iyz="-3.7069e-08" izz="1.49673e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_mf_axl" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="0.7" lower="-0.47" upper="0.47" velocity="7"/>
+    <parent link="base_link"/>
+    <child link="link_4.0"/>
+    <origin rpy="0.0 0 0" xyz="0 0 0.0007"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_5.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_1.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.054"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.027"/>
+    </collision>
+    <inertial>
+      <mass value="0.065"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="7.19218e-05" ixy="0" ixz="0" iyy="7.4377e-05" iyz="7.32186e-07" izz="5.40622e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_mf_mcp" type="revolute">
+    <limit effort="0.7" lower="-0.196" upper="1.61" velocity="7"/>
+    <axis xyz="0 1 0"/>
+    <parent link="link_4.0"/>
+    <child link="link_5.0"/>
+    <origin xyz="0 0 0.0164"/>
+    <dynamics damping="1.5e-2" friction="5"/>
+  </joint>
+  <link name="link_6.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_2.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0384"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0192"/>
+    </collision>
+    <inertial>
+      <mass value="0.0355"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="3.16925e-05" ixy="1.07094e-09" ixz="-4.91273e-09" iyy="3.10516e-05" iyz="3.87549e-08" izz="3.20319e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_mf_pip" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.174" upper="1.709" velocity="7"/>
+    <parent link="link_5.0"/>
+    <child link="link_6.0"/>
+    <origin xyz="0 0 0.054"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_7.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_3.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0267"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.01335"/>
+    </collision>
+    <inertial>
+      <mass value="0.0096"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="2.13975e-06" ixy="1.59554e-09" ixz="-7.47528e-09" iyy="1.52036e-06" iyz="-9.89336e-09" izz="1.20271e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_mf_dip" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.227" upper="1.618" velocity="7"/>
+    <parent link="link_6.0"/>
+    <child link="algr_rh_mf_dip"/>
+    <origin xyz="0 0 0.0384"/>
+    <dynamics damping="1.5e-2" friction="12"/>
+  </joint>
+  <link name="link_7.0_tip">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_3.0_tip.STL"/>
+      </geometry>
+      <material name="white">
+        <color rgba=".9 .9 .9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.012"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0168"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.19599e-05" ixy="0" ixz="0" iyy="1.19598e-05" iyz="0" izz="1.10345e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_mf_dip_tip" type="fixed">
+    <parent link="link_7.0"/>
+    <child link="link_7.0_tip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0267"/>
+  </joint>
+
+  <link name="link_8.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_0.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0164"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0082"/>
+    </collision>
+    <inertial>
+      <mass value="0.0119"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.95377e-06" ixy="3.03372e-09" ixz="8.92323e-08" iyy="1.17908e-06" iyz="-3.7069e-08" izz="1.49673e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_rf_axl" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="0.7" lower="-0.47" upper="0.47" velocity="7"/>
+    <parent link="base_link"/>
+    <child link="link_8.0"/>
+    <origin rpy="0.08726646255 0 0" xyz="0 -0.0435 -0.001542"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_9.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_1.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.054"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.027"/>
+    </collision>
+    <inertial>
+      <mass value="0.065"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="7.19218e-05" ixy="0" ixz="0" iyy="7.4377e-05" iyz="7.32186e-07" izz="5.40622e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_rf_mcp" type="revolute">
+    <limit effort="0.7" lower="-0.196" upper="1.61" velocity="7"/>
+    <axis xyz="0 1 0"/>
+    <parent link="link_8.0"/>
+    <child link="link_9.0"/>
+    <origin xyz="0 0 0.0164"/>
+    <dynamics damping="1.5e-2" friction="5"/>
+  </joint>
+  <link name="link_10.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_2.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0384"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0192"/>
+    </collision>
+    <inertial>
+      <mass value="0.0355"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="3.16925e-05" ixy="1.07094e-09" ixz="-4.91273e-09" iyy="3.10516e-05" iyz="3.87549e-08" izz="3.20319e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_rf_pip" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.174" upper="1.709" velocity="7"/>
+    <parent link="link_9.0"/>
+    <child link="link_10.0"/>
+    <origin xyz="0 0 0.054"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_11.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_3.0.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0267"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.01335"/>
+    </collision>
+    <inertial>
+      <mass value="0.0096"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="2.13975e-06" ixy="1.59554e-09" ixz="-7.47528e-09" iyy="1.52036e-06" iyz="-9.89336e-09" izz="1.20271e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_rf_dip" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.227" upper="1.618" velocity="7"/>
+    <parent link="link_10.0"/>
+    <child link="link_11.0"/>
+    <origin xyz="0 0 0.0384"/>
+    <dynamics damping="1.5e-2" friction="12"/>
+  </joint>
+  <link name="link_11.0_tip">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_3.0_tip.STL"/>
+      </geometry>
+      <material name="white">
+        <color rgba=".9 .9 .9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.012"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0168"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.19599e-05" ixy="0" ixz="0" iyy="1.19598e-05" iyz="0" izz="1.10345e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_rf_dip_tip" type="fixed">
+    <parent link="link_11.0"/>
+    <child link="link_11.0_tip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0267"/>
+  </joint>
+
+  <link name="link_12.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_12.0_right.STL"/>
+      </geometry>
+      <material name="black">
+        <color rgba=".2 .2 .2 1"/>
+      </material>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0358 0.034 0.0455"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.0179 0.009 0.0145"/>
+    </collision>
+    <inertial>
+      <mass value="0.0176"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="8.13883e-06" ixy="2.55226e-06" ixz="3.89933e-06" iyy="1.31421e-05" iyz="-1.46267e-06" izz="1.00171e-05"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_th_cmc" type="revolute">
+    <axis xyz="-1 0 0"/>
+    <limit effort="0.7" lower="0.263" upper="1.396" velocity="7"/>
+    <parent link="base_link"/>
+    <child link="link_12.0"/>
+    <origin rpy="0 -1.65806278845 -1.5707963259" xyz="-0.0182 0.019333 -0.045987"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_13.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_13.0.STL"/>
+      </geometry>
+      <material name="black">
+        <color rgba=".2 .2 .2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0177"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.00885"/>
+    </collision>
+    <inertial>
+      <mass value="0.0119"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.9263e-06" ixy="3.05433e-09" ixz="8.86582e-08" iyy="1.15276e-06" iyz="-3.64521e-08" izz="1.4957e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_th_axl" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="0.7" lower="-0.105" upper="1.163" velocity="7"/>
+    <parent link="link_12.0"/>
+    <child link="link_13.0"/>
+    <origin xyz="-0.027 0.005 0.0399"/>
+    <dynamics damping="1.5e-2" friction="5"/>
+  </joint>
+  <link name="link_14.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_14.0.STL"/>
+      </geometry>
+      <material name="black"></material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0514"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0257"/>
+    </collision>
+    <inertial>
+      <mass value="0.038"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="3.67044e-05" ixy="1.02277e-09" ixz="1.4854e-07" iyy="3.54042e-05" iyz="-3.67203e-08" izz="3.63275e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_th_mcp" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.189" upper="1.644" velocity="7"/>
+    <parent link="link_13.0"/>
+    <child link="link_14.0"/>
+    <origin xyz="0 0 0.0177"/>
+    <dynamics damping="1.5e-2" friction="10"/>
+  </joint>
+  <link name="link_15.0">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_15.0.STL"/>
+      </geometry>
+      <material name="black"></material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0196 0.0275 0.0423"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.02115"/>
+    </collision>
+    <inertial>
+      <mass value="0.0388"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="4.30919e-05" ixy="0" ixz="0" iyy="3.85425e-05" iyz="-3.0146e-08" izz="1.72974e-05"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_th_ipl" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="0.7" lower="-0.162" upper="1.719" velocity="7"/>
+    <parent link="link_14.0"/>
+    <child link="link_15.0"/>
+    <origin xyz="0 0 0.0514"/>
+    <dynamics damping="1.5e-2" friction="12"/>
+  </joint>
+  <link name="link_15.0_tip">
+    <visual>
+      <geometry>
+        <mesh filename="package://allegro_hand_description/meshes/link_15.0_tip.STL"/>
+      </geometry>
+      <material name="white">
+        <color rgba=".9 .9 .9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.012"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.0168"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.19599e-05" ixy="0" ixz="0" iyy="1.19598e-05" iyz="0" izz="1.10345e-06"/>
+    </inertial>
+  </link>
+  <joint name="algr_rh_th_ipl_tip" type="fixed">
+    <parent link="link_15.0"/>
+    <child link="link_15.0_tip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0423"/>
+  </joint>
+</robot>
